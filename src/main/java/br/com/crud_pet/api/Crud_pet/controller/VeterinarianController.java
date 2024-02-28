@@ -19,7 +19,7 @@ public class VeterinarianController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid RegisterDataVetDTO data, UriComponentsBuilder uriBilder){
+    public ResponseEntity register(@RequestBody @Valid RegisterDataVetDTO data, UriComponentsBuilder uriBilder) {
         Veterinarian veterinarian = new Veterinarian(data);
         repository.save(veterinarian);
 
@@ -29,7 +29,7 @@ public class VeterinarianController {
     }
 
     @GetMapping
-    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"name"})Pageable paginacao){
+    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"name"}) Pageable paginacao) {
         var page = repository.findAllByActiveTrue(paginacao).map(DetailsVeterinarianDTO::new);
 
         return ResponseEntity.ok(page);
@@ -37,10 +37,19 @@ public class VeterinarianController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity updata(@RequestBody @Valid UpdateVeterinarianDTO data ){
-    var veterinarian = repository.getReferenceById(data.id());
-    veterinarian.updataInfoVet(data);
+    public ResponseEntity updata(@RequestBody @Valid UpdateVeterinarianDTO data) {
+        var veterinarian = repository.getReferenceById(data.id());
+        veterinarian.updataInfoVet(data);
 
-    return ResponseEntity.ok(new DetailsVeterinarianDTO(veterinarian));
+        return ResponseEntity.ok(new DetailsVeterinarianDTO(veterinarian));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity delete(@PathVariable Long id) {
+        var veterinarian = repository.getReferenceById(id);
+        veterinarian.exclude(veterinarian);
+
+        return ResponseEntity.noContent().build();
     }
 }

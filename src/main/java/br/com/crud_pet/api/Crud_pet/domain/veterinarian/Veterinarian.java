@@ -55,4 +55,8 @@ public class Veterinarian {
             this.address.updataInformations(data.address());
         }
     }
+
+    public void exclude(Veterinarian veterinarian) {
+        this.active = false;
+    }
 }
