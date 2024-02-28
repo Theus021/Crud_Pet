@@ -41,4 +41,6 @@ public class Veterinarian {
         this.specialty = data.specialty();
         this.address = new Address(data.address());
     }
+
+
 }

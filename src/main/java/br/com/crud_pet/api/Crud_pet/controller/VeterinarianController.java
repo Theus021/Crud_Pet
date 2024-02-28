@@ -1,11 +1,10 @@
 package br.com.crud_pet.api.Crud_pet.controller;
 
-import br.com.crud_pet.api.Crud_pet.domain.veterinarian.DetailsVeterinarianDTO;
-import br.com.crud_pet.api.Crud_pet.domain.veterinarian.RegisterDataVet;
-import br.com.crud_pet.api.Crud_pet.domain.veterinarian.Veterinarian;
-import br.com.crud_pet.api.Crud_pet.domain.veterinarian.VeterinarianRepository;
+import br.com.crud_pet.api.Crud_pet.domain.veterinarian.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -28,4 +27,13 @@ public class VeterinarianController {
 
         return ResponseEntity.created(uri).body(new DetailsVeterinarianDTO(veterinarian));
     }
+
+    @GetMapping
+    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"name"})Pageable paginacao){
+        var page = repository.findAllByActiveTrue(paginacao).map(DetailsVeterinarianDTO::new);
+
+        return ResponseEntity.ok(page);
+    }
+
+
 }
