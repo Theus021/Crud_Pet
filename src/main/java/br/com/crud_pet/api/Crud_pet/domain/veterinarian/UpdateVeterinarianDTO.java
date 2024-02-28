@@ -1,6 +1,6 @@
 package br.com.crud_pet.api.Crud_pet.domain.veterinarian;
 
-import br.com.crud_pet.api.Crud_pet.domain.addresss.Address;
+import br.com.crud_pet.api.Crud_pet.domain.addresss.AddressDataDTO;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,7 +14,7 @@ public record UpdateVeterinarianDTO(
         @JsonAlias("telefone")
         String telephone,
         @JsonAlias("enderco")
-        Address address
+        AddressDataDTO address
 
 
 

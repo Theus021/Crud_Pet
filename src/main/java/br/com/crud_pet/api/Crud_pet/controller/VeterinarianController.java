@@ -19,7 +19,7 @@ public class VeterinarianController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid RegisterDataVet data, UriComponentsBuilder uriBilder){
+    public ResponseEntity register(@RequestBody @Valid RegisterDataVetDTO data, UriComponentsBuilder uriBilder){
         Veterinarian veterinarian = new Veterinarian(data);
         repository.save(veterinarian);
 
@@ -35,5 +35,12 @@ public class VeterinarianController {
         return ResponseEntity.ok(page);
     }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity updata(@RequestBody @Valid UpdateVeterinarianDTO data ){
+    var veterinarian = repository.getReferenceById(data.id());
+    veterinarian.updataInfoVet(data);
 
+    return ResponseEntity.ok(new DetailsVeterinarianDTO(veterinarian));
+    }
 }

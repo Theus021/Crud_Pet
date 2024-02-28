@@ -2,7 +2,6 @@ package br.com.crud_pet.api.Crud_pet.domain.veterinarian;
 
 
 import br.com.crud_pet.api.Crud_pet.domain.addresss.Address;
-import br.com.crud_pet.api.Crud_pet.domain.addresss.AddressData;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,16 +23,16 @@ public class Veterinarian {
     private String telephone;
     private String crm;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Specialty specialty;
 
     @Embedded
     private Address address;
 
-    private boolean active;
+    private boolean active = true;
 
 
-    public Veterinarian(RegisterDataVet data) {
+    public Veterinarian(RegisterDataVetDTO data) {
         this.name = data.name();
         this.email = data.email();
         this.telephone = data.telephone();
@@ -42,5 +41,18 @@ public class Veterinarian {
         this.address = new Address(data.address());
     }
 
-
+    public void updataInfoVet(UpdateVeterinarianDTO data) {
+        if (data.name() != null){
+            this.name = data.name();
+        }
+        if(data.email() != null){
+            this.email = data.email();
+        }
+        if (data.telephone() != null){
+            this.telephone = data.telephone();
+        }
+        if (data.address() != null){
+            this.address.updataInformations(data.address());
+        }
+    }
 }
