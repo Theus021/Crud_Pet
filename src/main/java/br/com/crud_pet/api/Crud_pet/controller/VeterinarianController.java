@@ -52,4 +52,11 @@ public class VeterinarianController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detail(@PathVariable Long id){
+        var veterinarian = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DetailsVeterinarianDTO(veterinarian));
+    }
 }
