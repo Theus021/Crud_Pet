@@ -59,4 +59,5 @@ public class VeterinarianController {
 
         return ResponseEntity.ok(new DetailsVeterinarianDTO(veterinarian));
     }
+
 }
