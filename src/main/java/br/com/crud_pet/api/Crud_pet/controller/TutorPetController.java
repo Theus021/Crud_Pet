@@ -46,5 +46,12 @@ public class TutorPetController {
         return ResponseEntity.ok(new DetailsDataTutorDTO(tutor));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity detailTutor(@PathVariable Long id){
+        var tutor = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DetailsDataTutorDTO(tutor));
+    }
+
 
 }

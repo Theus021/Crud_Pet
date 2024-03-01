@@ -38,6 +38,7 @@ public class Tutor {
         this.address = new Address(data.address());
     }
 
+
     public void updateinf(UpdateTutorDto data) {
         if (data.tutor() != null){
             this.tutor = data.tutor();
@@ -61,4 +62,6 @@ public class Tutor {
             this.address.updataInformations(data.address());
         }
     }
+
+
 }
