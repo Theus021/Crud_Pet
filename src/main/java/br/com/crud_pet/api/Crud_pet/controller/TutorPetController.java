@@ -6,12 +6,11 @@ import br.com.crud_pet.api.Crud_pet.domain.tutor.Tutor;
 import br.com.crud_pet.api.Crud_pet.domain.tutor.TutorRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -33,4 +32,12 @@ public class TutorPetController {
 
         return ResponseEntity.created(uri).body(new DetailsDataTutorDTO(tutor));
     }
+
+    @GetMapping()
+    public ResponseEntity listTutor(@PageableDefault(size = 10, sort = {"tutor"}) Pageable pageable){
+        var page = repository.findAll(pageable).map(DetailsDataTutorDTO::new);
+
+        return ResponseEntity.ok().body(page);
+    }
+
 }
