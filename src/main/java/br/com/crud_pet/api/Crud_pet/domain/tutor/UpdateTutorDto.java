@@ -6,34 +6,24 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record RegisterDataTutorDto(
-        @NotBlank
-        String tutor,
+public record UpdateTutorDto(
+        @NotNull
+        Long id,
 
-        @NotBlank
+        String tutor,
         String pet,
 
-        @NotBlank
         @JsonAlias("idade")
         String age,
 
-        @NotBlank
         @JsonAlias("peso")
         String weight,
 
-        @NotBlank
         @JsonAlias("telefone")
         String telephone,
 
-        @NotBlank
         String email,
-
-        @NotNull @Valid
         @JsonAlias("endereco")
         AddressDataDTO address
-
-
-
-
 ) {
 }

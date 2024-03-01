@@ -1,9 +1,6 @@
 package br.com.crud_pet.api.Crud_pet.controller;
 
-import br.com.crud_pet.api.Crud_pet.domain.tutor.DetailsDataTutorDTO;
-import br.com.crud_pet.api.Crud_pet.domain.tutor.RegisterDataTutorDto;
-import br.com.crud_pet.api.Crud_pet.domain.tutor.Tutor;
-import br.com.crud_pet.api.Crud_pet.domain.tutor.TutorRepository;
+import br.com.crud_pet.api.Crud_pet.domain.tutor.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -33,11 +30,21 @@ public class TutorPetController {
         return ResponseEntity.created(uri).body(new DetailsDataTutorDTO(tutor));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity listTutor(@PageableDefault(size = 10, sort = {"tutor"}) Pageable pageable){
         var page = repository.findAll(pageable).map(DetailsDataTutorDTO::new);
 
         return ResponseEntity.ok().body(page);
     }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity update(@RequestBody @Valid UpdateTutorDto data){
+        var tutor = repository.getReferenceById(data.id());
+        tutor.updateinf(data);
+
+        return ResponseEntity.ok(new DetailsDataTutorDTO(tutor));
+    }
+
 
 }
