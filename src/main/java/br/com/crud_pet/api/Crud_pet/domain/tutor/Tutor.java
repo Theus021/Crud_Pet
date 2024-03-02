@@ -4,7 +4,7 @@ import br.com.crud_pet.api.Crud_pet.domain.addresss.Address;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "Tutors")
+@Table(name = "tutors")
 @Entity(name = "Tutor")
 @Getter
 @Setter

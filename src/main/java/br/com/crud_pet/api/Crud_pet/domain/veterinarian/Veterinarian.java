@@ -5,7 +5,7 @@ import br.com.crud_pet.api.Crud_pet.domain.addresss.Address;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "Veterinarians")
+@Table(name = "veterinarians")
 @Entity(name = "Veterinarian")
 @Getter
 @Setter
@@ -29,7 +29,7 @@ public class Veterinarian {
     @Embedded
     private Address address;
 
-    private boolean active = true;
+    private Boolean active;
 
 
     public Veterinarian(RegisterDataVetDTO data) {

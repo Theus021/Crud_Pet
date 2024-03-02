@@ -1,4 +1,4 @@
-create table Tutors(
+create table tutors(
     id bigint not null auto_increment,
     tutor varchar(100) not null,
     pet varchar(100) not null,
