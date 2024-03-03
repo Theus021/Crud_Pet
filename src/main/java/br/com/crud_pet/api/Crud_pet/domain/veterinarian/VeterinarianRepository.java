@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 public interface VeterinarianRepository extends JpaRepository<Veterinarian, Long> {
 
@@ -28,4 +27,9 @@ public interface VeterinarianRepository extends JpaRepository<Veterinarian, Long
             limit 1
         """)
     Veterinarian randomDoctorFreeOnDate(LocalDateTime date, Specialty specialty);
+
+    @Query("SELECT v.active FROM Veterinarian v where v.id =:id")
+    Boolean findActiveById(Long id);
+
+
 }
