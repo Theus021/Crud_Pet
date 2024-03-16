@@ -1,9 +1,7 @@
 package br.com.crud_pet.api.Crud_pet.controller;
 
-import br.com.crud_pet.api.Crud_pet.domain.user.AuthenticationDTO;
-import br.com.crud_pet.api.Crud_pet.domain.user.RegisterDTO;
-import br.com.crud_pet.api.Crud_pet.domain.user.Users;
-import br.com.crud_pet.api.Crud_pet.domain.user.UserRepository;
+import br.com.crud_pet.api.Crud_pet.domain.user.*;
+import br.com.crud_pet.api.Crud_pet.infra.service.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,17 +23,19 @@ public class AuthenticationController {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
-        try {
+
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
 
-            return ResponseEntity.ok().build();
-        }catch(Exception e){
-            e.printStackTrace();
-        };
-        return ResponseEntity.ok().build();
+            var token = tokenService.generationToken((Users) auth.getPrincipal());
+
+            return ResponseEntity.ok(new TokenDTO(token));
+
     }
 
     @PostMapping("/register")
